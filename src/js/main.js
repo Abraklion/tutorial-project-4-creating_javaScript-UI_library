@@ -1,3 +1,7 @@
 import "./library/library";
 
-$abr('.elem').hide()
+$abr('button').on('click', function() {
+  let a = $abr('.text').removeAttribute('title');
+
+  console.log(a)
+});

@@ -14,6 +14,17 @@ $abr.prototype.init = function(selector) {
     return this; // {}
   }
 
+  // если передали узел (node)
+  if (selector.tagName) {
+    // положим этот элемент в обьект
+    this[0] = selector;
+    // количество элементов 1
+    this.length = 1;
+
+    // возвращаем обьект
+    return this;
+  }
+
   // копируем все перечисляемые свойства провдомассива в целевой обьект
   Object.assign(this, document.querySelectorAll(selector));
   // считаем все элементы провдомассива и записываем в целевой обьект

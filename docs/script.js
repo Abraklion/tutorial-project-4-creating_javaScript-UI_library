@@ -108,6 +108,16 @@ $abr.prototype.init = function (selector) {
   if (!selector) {
     // если не передали селектор возвращаем пустой обьект
     return this; // {}
+  } // если передали узел (node)
+
+
+  if (selector.tagName) {
+    // положим этот элемент в обьект
+    this[0] = selector; // количество элементов 1
+
+    this.length = 1; // возвращаем обьект
+
+    return this;
   } // копируем все перечисляемые свойства провдомассива в целевой обьект
 
 
@@ -138,6 +148,12 @@ window.$abr = $abr; // экспортируем модуль
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/library/core.js");
 /* harmony import */ var _modules_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/display */ "./src/js/library/modules/display.js");
+/* harmony import */ var _modules_classes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/classes */ "./src/js/library/modules/classes.js");
+/* harmony import */ var _modules_attribute__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/attribute */ "./src/js/library/modules/attribute.js");
+/* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/actions */ "./src/js/library/modules/actions.js");
+
+
+
 
 
 /**
@@ -145,6 +161,167 @@ __webpack_require__.r(__webpack_exports__);
  * */
 
 /* harmony default export */ __webpack_exports__["default"] = (_core__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./src/js/library/modules/actions.js":
+/*!*******************************************!*\
+  !*** ./src/js/library/modules/actions.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/library/core.js");
+
+/**
+ *   методы для работы с событиями (event)
+ *   -> зарегистрировать
+ *   -> удалить
+ *   -> зарегистрировать click
+ * */
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.on = function (eventName, callback) {
+  // зарегистрировать события
+  if (!eventName || !callback) {
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].addEventListener(eventName, callback);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.off = function (eventName, callback) {
+  // удаления событий
+  if (!eventName || !callback) {
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].removeEventListener(eventName, callback);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handler) {
+  // вызов или регистрация события click на элементе
+  for (let i = 0; i < this.length; i++) {
+    if (handler) {
+      this[i].addEventListener('click', handler);
+    } else {
+      this[i].click();
+    }
+  }
+
+  return this;
+};
+
+/***/ }),
+
+/***/ "./src/js/library/modules/attribute.js":
+/*!*********************************************!*\
+  !*** ./src/js/library/modules/attribute.js ***!
+  \*********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/library/core.js");
+
+/**
+ *   методы для работы с атрибутами
+ *   -> получить
+ *   -> добавить
+ *   -> удалить
+ * */
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.getAttribute = function (attributeName) {
+  // получить значения атрибута
+  if (!attributeName) {
+    return this;
+  }
+
+  return this.length > 0 ? this[0].getAttribute(attributeName) : null;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.setAttribute = function (attributeName, attributeValue) {
+  // добавить атрибут
+  if (!attributeName || !attributeValue) {
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].setAttribute(attributeName, attributeValue);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.removeAttribute = function (attributeName) {
+  // удалить атрибут
+  if (!attributeName) {
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].removeAttribute(attributeName);
+  }
+
+  return this;
+};
+
+/***/ }),
+
+/***/ "./src/js/library/modules/classes.js":
+/*!*******************************************!*\
+  !*** ./src/js/library/modules/classes.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/library/core.js");
+
+/**
+ *   методы для работы с классами
+ *   -> добавить
+ *   -> удалить
+ *   -> переключать (показать/скрыть)
+ * */
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.addClass = function () {
+  // добавить класс(ы)
+  for (let i = 0; i < this.length; i++) {
+    this[i].classList.add(...arguments);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.removeClass = function () {
+  // удалить класс(ы)
+  for (let i = 0; i < this.length; i++) {
+    this[i].classList.remove(...arguments);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleClass = function (classNames) {
+  // переключает класс(ы)
+  for (let i = 0; i < this.length; i++) {
+    this[i].classList.toggle(classNames);
+  }
+
+  return this;
+};
 
 /***/ }),
 
@@ -222,7 +399,10 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggle = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _library_library__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./library/library */ "./src/js/library/library.js");
 
-$abr('.elem').hide();
+$abr('button').on('click', function () {
+  let a = $abr('.text').removeAttribute('title');
+  console.log(a);
+});
 
 /***/ })
 

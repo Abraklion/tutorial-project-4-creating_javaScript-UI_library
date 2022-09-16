@@ -1,5 +1,8 @@
 import $abr from './core';
 import './modules/display';
+import './modules/classes';
+import './modules/attribute';
+import './modules/actions';
 
 /**
  *   расширяет ядро новым функционалом
