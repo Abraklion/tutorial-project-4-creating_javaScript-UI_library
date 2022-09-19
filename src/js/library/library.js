@@ -4,6 +4,7 @@ import './modules/classes';
 import './modules/attribute';
 import './modules/handlers';
 import './modules/actions';
+import './modules/effects';
 
 /**
  *   расширяет ядро новым функционалом
