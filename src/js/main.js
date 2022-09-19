@@ -2,5 +2,5 @@ import "./library/library";
 
 $abr('button').on('click', function() {
 
-  console.log($abr('.findme').find('.some'))
+  console.log($abr('.some').siblings())
 });
