@@ -629,9 +629,6 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handle
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _library_library__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./library/library */ "./src/js/library/library.js");
 
-$abr('button').on('click', function () {
-  console.log($abr('.some').fadeOut(1000));
-});
 
 /***/ })
 

@@ -5,6 +5,7 @@ const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 const sass = require("gulp-sass")(require('sass'));
 const autoprefixer = require("autoprefixer");
+const gcmq = require("gulp-group-css-media-queries")
 const cleanCSS = require("gulp-clean-css");
 const postcss = require("gulp-postcss");
 
@@ -26,6 +27,7 @@ gulp.task("build-sass", () => {
 
   return gulp.src("./src/sass/style.scss")
     .pipe(sass().on('error', sass.logError))
+    .pipe(gcmq())
     .pipe(gulp.dest(dist))
     .pipe(browsersync.stream());
 
