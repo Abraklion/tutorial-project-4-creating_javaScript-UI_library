@@ -9,6 +9,11 @@ $font-family-basic: "Roboto", sans-serif !default;
 
 $line-height-basic: 1.5 !default;
 
+// метод разработки " mobile-first | desktop-first"
+$orientation: 'mobile-first' !default;
+// максимальная ширина контейнера для desktop-first
+$width-container: 1200px !default;
+
 // Контрольные точки
 $container: (
   sm: (breakpoint: 576px, max-width: 540px),

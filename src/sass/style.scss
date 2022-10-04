@@ -3,10 +3,10 @@
 // Настройка с библиотекой
 
 // Библиотека
-//@use "library/my-bootstrap";
+@use "library/my-bootstrap";
 
 // Шрифты
-//@use "fonts";
+@use "fonts";
 
 // Блоки
 //@use "components/...";
@@ -16,19 +16,19 @@
 // Настройка без библиотеки
 
 // Шрифты
-@use "fonts";
+//@use "fonts";
 
 // Нормализация css
-@use "normalize";
+//@use "normalize";
 
 // Анимации
-@use 'animations';
+//@use 'animations';
 
 // Базовые настройки
-@use "core";
-
+//@use "core";
 
 // Блоки
-@use "components/container";
+//@use "components/container";
+
 
 

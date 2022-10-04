@@ -9,10 +9,22 @@
 
 // region " 1 Контейнер (components) "
 
-@mixin container($container) {
+@mixin container($container, $width-container: v.$width-container, $orientation: v.$orientation) {
+
+  $z: 0;
+  $route: 'min';
+
+  @if $orientation == 'desktop-first' {
+    $z: 1;
+    $route: 'max';
+  }
 
   .container {
     width: 100%;
+
+    @if $orientation == 'desktop-first' {
+      max-width: $width-container;
+    }
 
     padding: 0 12px;
     margin: 0 auto;
@@ -25,6 +37,10 @@
       &-#{$key} {
         width: 100%;
 
+        @if $orientation == 'desktop-first' {
+          max-width: $width-container;
+        }
+
         padding: 0 12px;
         margin: 0 auto;
 
@@ -36,7 +52,7 @@
     // брейкпоинт контейнер
     @each $key, $val in $container {
 
-      @media (min-width:  map.get($val, "breakpoint")) {
+      @media (#{$route}-width:  map.get($val, "breakpoint") - $z) {
         max-width: map.get($val, "max-width");
       }
 
@@ -49,10 +65,24 @@
 
         @each $key2, $val2 in $container {
 
-          @if map.get($val, "breakpoint") <= map.get($val2, "breakpoint"){
+          @if $orientation == 'desktop-first' {
 
-            @media (min-width: map.get($val2, "breakpoint")) {
-              max-width: map.get($val2, "max-width");
+            @if map.get($val, "breakpoint") >= map.get($val2, "breakpoint"){
+
+              @media (#{$route}-width: map.get($val2, "breakpoint") - $z) {
+                max-width: map.get($val2, "max-width");
+              }
+
+            }
+
+          } @else {
+
+            @if map.get($val, "breakpoint") <= map.get($val2, "breakpoint"){
+
+              @media (#{$route}-width: map.get($val2, "breakpoint") - $z) {
+                max-width: map.get($val2, "max-width");
+              }
+
             }
 
           }
@@ -64,6 +94,10 @@
     &-fluid{
       width: 100%;
 
+      @if $orientation == 'desktop-first' {
+        max-width: none;
+      }
+
       padding: 0 12px;
       margin: 0 auto;
 
@@ -74,7 +108,7 @@
     @each $key, $val in $container {
 
       &-#{$key}-fluid{
-        @media (min-width:  map.get($val, "breakpoint")) {
+        @media (#{$route}-width:  map.get($val, "breakpoint") - $z) {
           max-width: none;
         }
       }
@@ -87,7 +121,15 @@
 
 // region " 2 Сетка (components) "
 
-@mixin grid($container) {
+@mixin grid($container, $orientation: v.$orientation) {
+
+  $z: 0;
+  $route: 'min';
+
+  @if $orientation == 'desktop-first' {
+    $z: 1;
+    $route: 'max';
+  }
 
   // 1 Ряд
   .row {
@@ -125,7 +167,7 @@
       @each $key, $val in $container {
 
         &-#{$key}-auto > * {
-          @media (min-width: map.get($val, "breakpoint")) {
+          @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
             flex: 0 0 auto;
             width: auto;
           }
@@ -143,7 +185,7 @@
         @each $key, $val in $container {
 
           &-#{$key}-#{$i} > * {
-            @media (min-width: map.get($val, "breakpoint")) {
+            @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
               flex: 0 0 auto;
               width: f.fun-divide($i);
             }
@@ -162,7 +204,7 @@
     @each $key, $val in $container {
 
       &-#{$key} {
-        @media (min-width: map.get($val, "breakpoint")) {
+        @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
           flex: 1 0 0%;
         }
       }
@@ -177,7 +219,7 @@
     @each $key, $val in $container {
 
       &-#{$key}-auto {
-        @media (min-width: map.get($val, "breakpoint")) {
+        @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
           flex: 0 0 auto;
           width: auto;
         }
@@ -195,7 +237,7 @@
       @each $key, $val in $container {
 
         &-#{$key}-#{$i} {
-          @media (min-width: map.get($val, "breakpoint")) {
+          @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
             flex: 0 0 auto;
             width: f.fun-divide($i,12);
           }
@@ -210,10 +252,16 @@
 
     @for $i from 0 through 11 {
 
+      @if $orientation == 'desktop-first' {
+        &-#{$i} {
+          margin-left: f.fun-divide($i,12);
+        }
+      }
+
       @each $key, $val in $container {
 
         &-#{$key}-#{$i} {
-          @media (min-width:  map.get($val, "breakpoint")) {
+          @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
             margin-left: f.fun-divide($i,12);
           }
         }
@@ -234,7 +282,7 @@
       @each $key, $val in $container {
 
         &-#{$key}-#{$i} {
-          @media (min-width:  map.get($val, "breakpoint")) {
+          @media (#{$route}-width:  map.get($val, "breakpoint") - $z) {
             @include gutterXY($i)
           }
         }
@@ -254,7 +302,7 @@
       @each $key, $val in $container {
 
         &-#{$key}-#{$i} {
-          @media (min-width:  map.get($val, "breakpoint")) {
+          @media (#{$route}-width:  map.get($val, "breakpoint") - $z) {
             @include gutterX($i)
           }
         }
@@ -274,7 +322,7 @@
       @each $key, $val in $container {
 
         &-#{$key}-#{$i} {
-          @media (min-width:  map.get($val, "breakpoint")) {
+          @media (#{$route}-width:  map.get($val, "breakpoint") - $z) {
             @include gutterY($i)
           }
         }
@@ -412,7 +460,15 @@
 
 // region " 4 Вспомогательные классы (helpers) "
 
-@mixin rulesBreakpoint($container,$rules,$prefix:null) {
+@mixin rulesBreakpoint($container, $rules, $prefix: null , $orientation: v.$orientation) {
+
+  $z: 0;
+  $route: 'min';
+
+  @if $orientation == 'desktop-first' {
+    $z: 1;
+    $route: 'max';
+  }
 
   @if $prefix{
 
@@ -430,12 +486,12 @@
 
   }
 
-  @each $key, $val in v.$container {
+  @each $key, $val in $container {
 
     @if $prefix{
 
       &-#{$key}-#{$prefix} {
-        @media (min-width: map.get($val, "breakpoint")) {
+        @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
 
           @each $key, $val in $rules {
             #{$key}: $val !important;
@@ -447,7 +503,7 @@
     }@else{
 
       &-#{$key} {
-        @media (min-width: map.get($val, "breakpoint")) {
+        @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
 
           @each $key, $val in $rules {
             #{$key}: $val !important;
@@ -466,37 +522,26 @@
 
 // region " 5 Адаптивность "
 
-// min-width
-@mixin media($breakpoint, $container: v.$container){
+// min-width | max-width в зависимости от метод разработки " mobile-first | desktop-first"
+@mixin media($breakpoint, $orientation: v.$orientation, $container: v.$container){
 
-  @if meta.type-of($breakpoint) == "string" {
+  $z: 0;
+  $route: 'min';
 
-    @media (min-width: map.get(map.get($container, $breakpoint),"breakpoint")) {
-      @content;
-    }
-
-  } @else {
-
-    @media (min-width: #{$breakpoint}px) {
-      @content;
-    }
-
+  @if $orientation == 'desktop-first' {
+    $z: 1;
+    $route: 'max';
   }
 
-}
-
-// max-width
-@mixin media-max($breakpoint, $container: v.$container){
-
   @if meta.type-of($breakpoint) == "string" {
 
-    @media (max-width: map.get(map.get($container, $breakpoint),"breakpoint") - 1) {
+    @media (#{$route}-width: map.get(map.get($container, $breakpoint),"breakpoint") - $z) {
       @content;
     }
 
   } @else {
 
-    @media (max-width: #{$breakpoint}px) {
+    @media (#{$route}-width: #{$breakpoint}px) {
       @content;
     }
 

@@ -6,11 +6,23 @@
 
 //-----===== Миксины ====-----//
 
-// контейнер " Mobile First "
-@mixin container($container) {
+// контейнер
+@mixin container($container, $width-container: v.$width-container, $orientation: v.$orientation) {
+
+  $z: 0;
+  $route: 'min';
+
+  @if $orientation == 'desktop-first' {
+    $z: 1;
+    $route: 'max';
+  }
 
   .container {
     width: 100%;
+
+    @if $orientation == 'desktop-first' {
+      max-width: $width-container;
+    }
 
     padding: 0 12px;
     margin: 0 auto;
@@ -19,7 +31,7 @@
 
     @each $key, $val in $container {
 
-      @media (min-width: map.get($val, "breakpoint")) {
+      @media (#{$route}-width: map.get($val, "breakpoint") - $z) {
         max-width: map.get($val, "max-width");
       }
 
@@ -28,60 +40,26 @@
 
 }
 
-// контейнер " Desktop First "
-@mixin container-desktop($container, $width: 1200px) {
+// min-width | max-width в зависимости от метод разработки " mobile-first | desktop-first"
+@mixin media($breakpoint, $orientation: v.$orientation, $container: v.$container){
 
-  .container {
-    width: 100%;
-    max-width: $width;
+  $z: 0;
+  $route: 'min';
 
-    padding: 0 12px;
-    margin: 0 auto;
-
-    box-sizing: border-box;
-
-    @each $key, $val in $container {
-
-      @media (max-width: map.get($val, "breakpoint") - 1) {
-        max-width: map.get($val, "max-width");
-      }
-
-    }
+  @if $orientation == 'desktop-first' {
+    $z: 1;
+    $route: 'max';
   }
-
-}
-
-// min-width
-@mixin media($breakpoint, $container: v.$container){
 
   @if meta.type-of($breakpoint) == "string" {
 
-    @media (min-width: map.get(map.get($container, $breakpoint),"breakpoint")) {
+    @media (#{$route}-width: map.get(map.get($container, $breakpoint),"breakpoint") - $z) {
       @content;
     }
 
   } @else {
 
-    @media (min-width: #{$breakpoint}px) {
-      @content;
-    }
-
-  }
-
-}
-
-// max-width
-@mixin media-max($breakpoint, $container: v.$container){
-
-  @if meta.type-of($breakpoint) == "string" {
-
-    @media (max-width: map.get(map.get($container, $breakpoint),"breakpoint") - 1) {
-      @content;
-    }
-
-  } @else {
-
-    @media (max-width: #{$breakpoint}px) {
+    @media (#{$route}-width: #{$breakpoint}px) {
       @content;
     }
 
