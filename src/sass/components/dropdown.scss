@@ -1,0 +1,58 @@
+@use "../library/my-bootstrap/general/variables" as v;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  &:after {
+    content: '';
+
+    display: inline-block;
+    vertical-align: 3px;
+
+    margin-left: 5px;
+
+    border-top: 4px solid;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 0;
+  }
+}
+
+.dropdown-menu {
+  display: none;
+  min-width: 100%;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+
+  padding: 10px 0;
+
+  background-color: #fff;
+
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 2px;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+
+  padding: 7px 10px;
+
+  background-color: transparent;
+
+  color: v.$dark;
+
+  text-decoration: none;
+
+  border: 0;
+
+  &:hover {
+    background-color: rgba(0,0,0, .05);
+  }
+}
