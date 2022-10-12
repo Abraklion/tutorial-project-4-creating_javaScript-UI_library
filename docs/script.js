@@ -115,6 +115,60 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.dropdown-toggle').dropdo
 
 /***/ }),
 
+/***/ "./src/js/library/components/modal.js":
+/*!********************************************!*\
+  !*** ./src/js/library/components/modal.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/library/core.js");
+
+/**
+ *   Компонент модальное окно
+ *   @returns {void}
+ */
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function () {
+  for (let i = 0; i < this.length; i++) {
+    /**
+     *   Дата-атрибут элемента по которому кликнули
+     *   @type {string}
+     */
+    const target = this[i].getAttribute('data-target');
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
+      e.preventDefault();
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeIn(500);
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  /**
+   *   Отбираем элементы при клике на которые будет закрываться модальное окно
+   *   @type {NodeList}
+   */
+
+
+  const closeElements = document.querySelectorAll('[data-close]');
+  closeElements.forEach(elem => {
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(elem).click(() => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
+      document.body.style.overflow = '';
+    });
+  });
+  Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').click(e => {
+    if (e.target.classList.contains('modal')) {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
+      document.body.style.overflow = '';
+    }
+  });
+};
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-toggle="modal"]').modal();
+
+/***/ }),
+
 /***/ "./src/js/library/core.js":
 /*!********************************!*\
   !*** ./src/js/library/core.js ***!
@@ -183,6 +237,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/actions */ "./src/js/library/modules/actions.js");
 /* harmony import */ var _modules_effects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/effects */ "./src/js/library/modules/effects.js");
 /* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/library/components/dropdown.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/library/components/modal.js");
+
 
 
 
@@ -194,10 +250,6 @@ __webpack_require__.r(__webpack_exports__);
 /**
  *   расширяет ядро новым функционалом
  * */
-
-/**
- * asdadsasd
- */
 
 /* harmony default export */ __webpack_exports__["default"] = (_core__WEBPACK_IMPORTED_MODULE_0__["default"]);
 

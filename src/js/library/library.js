@@ -7,13 +7,10 @@ import './modules/actions';
 import './modules/effects';
 
 import './components/dropdown';
+import './components/modal';
 
 /**
  *   расширяет ядро новым функционалом
  * */
-
-/**
- * asdadsasd
- */
 
 export default $abr;
