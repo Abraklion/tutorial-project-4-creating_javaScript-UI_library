@@ -1,0 +1,48 @@
+@use "../library/my-bootstrap/general/variables" as v;
+
+.accordion-head {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: 50px;
+
+  padding: 0 20px;
+
+  font-size: 18px;
+
+  color: v.$dark;
+
+  border: 1px solid rgba(0,0,0, .2);
+
+  cursor: pointer;
+
+  &--active {
+    color: v.$primary;
+  }
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+
+  background-color: #fff;
+
+  border: 1px solid rgba(224,211,211, 1);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+
+  opacity: 0;
+
+  transition: opacity 0.5s, max-height 0.5s;
+
+  &--active {
+    overflow: visible;
+    opacity: 1;
+  }
+}
+
+.accordion-inner {
+  display: block;
+  padding: 20px;
+}
