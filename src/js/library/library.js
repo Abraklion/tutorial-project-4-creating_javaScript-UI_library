@@ -8,6 +8,7 @@ import './modules/effects';
 
 import './components/dropdown';
 import './components/modal';
+import './components/tab';
 
 /**
  *   расширяет ядро новым функционалом
