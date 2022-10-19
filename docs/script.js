@@ -495,6 +495,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tab */ "./src/js/library/components/tab.js");
 /* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/accordion */ "./src/js/library/components/accordion.js");
 /* harmony import */ var _components_carousel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/carousel */ "./src/js/library/components/carousel.js");
+/* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/requests */ "./src/js/library/services/requests.js");
+
 
 
 
@@ -995,6 +997,77 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handle
 
 /***/ }),
 
+/***/ "./src/js/library/services/requests.js":
+/*!*********************************************!*\
+  !*** ./src/js/library/services/requests.js ***!
+  \*********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/library/core.js");
+
+/**
+ *   Сервис запрос методом GET
+ *   @param {string} url ссылка на ресурс
+ *   @param {string} dataTypeAnswer тип ответа который мы хотим получить
+ *   @returns {promise}
+ */
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.get = async function (url) {
+  let dataTypeAnswer = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'json';
+  let res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+  }
+
+  switch (dataTypeAnswer) {
+    case 'json':
+      return await res.json();
+
+    case 'text':
+      return await res.text();
+
+    case 'blob':
+      return await res.blob();
+  }
+};
+/**
+ *   Сервис запрос методом POST
+ *   @param {string} url ссылка на ресурс
+ *   @param {object | string} data параметры запроса
+ *   @param {string} dataTypeAnswer тип ответа который мы хотим получить
+ *   @returns {promise}
+ */
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.post = async function (url, data) {
+  let dataTypeAnswer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'text';
+  let res = await fetch(url, {
+    method: "POST",
+    body: data
+  });
+
+  if (!res.ok) {
+    throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+  }
+
+  switch (dataTypeAnswer) {
+    case 'json':
+      return await res.json();
+
+    case 'text':
+      return await res.text();
+
+    case 'blob':
+      return await res.blob();
+  }
+};
+
+/***/ }),
+
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
@@ -1020,6 +1093,9 @@ Object(_library_library__WEBPACK_IMPORTED_MODULE_0__["default"])('#trigger').cli
     }]]
   }
 }));
+Object(_library_library__WEBPACK_IMPORTED_MODULE_0__["default"])().get('https://jsonplaceholder.typicode.com/posts').then(data => {
+  console.log(data);
+});
 
 /***/ })
 

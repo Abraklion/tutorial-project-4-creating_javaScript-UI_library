@@ -34,5 +34,11 @@ $abr('#trigger').click(() => $abr('#trigger').createModal({
 }));
 
 
+$abr()
+  .get('https://jsonplaceholder.typicode.com/posts')
+    .then(data => {
+      console.log(data)
+    })
+
   
 

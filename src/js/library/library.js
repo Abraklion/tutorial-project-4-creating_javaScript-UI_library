@@ -12,6 +12,8 @@ import './components/tab';
 import './components/accordion';
 import './components/carousel';
 
+import './services/requests';
+
 /**
  *   расширяет ядро новым функционалом
  * */
